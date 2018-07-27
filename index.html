@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<canvas width="500px" height="500px" tabindex='1' style="outline: black solid 1px; background-color: blue" id="cvs"></canvas>
+<script type="module">
+
+    import {Renderer} from "./Renderer.js";
+
+    let canvas = document.getElementById("cvs");
+    let ctx = canvas.getContext("2d");
+
+
+    let cube = [
+        [
+            [500, -100, -100],
+            [500, 100, -100]
+        ],
+        [
+            [500, 100, -100],
+            [500, 100, 100]
+        ],
+        [
+            [500, 100, 100],
+            [500, -100, 100]
+        ],
+        [
+            [500, -100, 100],
+            [500, -100, -100]
+        ]
+    ];
+
+    let axis = [
+
+        [
+            [0, 0, 0],
+            [100, 0, 0]
+        ],
+        [
+            [0, 0, 0],
+            [0, 100, 0]
+        ],
+        [
+            [0, 0, 0],
+            [0, 0, 100]
+        ]
+    ];
+
+    let renderer = new Renderer(canvas);
+
+    renderer.commit(axis);
+
+    let i = 0;
+    i++;
+    for (let j = 0; j < 1000; j++) {
+        renderer.commit(
+            [
+                [
+                    [500 - i * 5 + j * 20, -250, -250 + 30 * Math.cos(j)],
+                    [500 - i * 5 + j * 20, 250, -250 + 5000 * Math.sin(j)]
+                ]
+            ]
+        )
+    }
+
+
+    for (let j = 0; j < 100; j++) {
+        renderer.commit(
+            [
+                [
+                    [500 - i * 3 + j * 200, -200, -200],
+                    [500 - i * 3 + j * 200, 200, -200]
+                ],
+                [
+                    [500 - i * 3 + j * 200, 200, -200],
+                    [500 - i * 3 + j * 200, 200, 200]
+                ],
+                [
+                    [500 - i * 3 + j * 200, 200, 200],
+                    [500 - i * 3 + j * 200, -200, 200]
+                ],
+                [
+                    [500 - i * 3 + j * 200, -200, 200],
+                    [500 - i * 3 + j * 200, -200, -200]
+                ]
+            ]
+        );
+    }
+
+    for (let j = 0; j < 100; j++) {
+        let tip = [300 - i * 3 + j * 200, 0, 0];
+        renderer.commit(
+            [
+                [
+                    [500 - i * 3 + j * 200, -200, -200],
+                    tip
+                ],
+                [
+                    [500 - i * 3 + j * 200, 200, -200],
+                    tip
+                ],
+                [
+                    [500 - i * 3 + j * 200, 200, 200],
+                    tip
+                ],
+                [
+                    [500 - i * 3 + j * 200, -200, 200],
+                    tip
+                ]
+            ]
+        );
+    }
+
+    setInterval(
+        () => {
+            renderer.draw();
+            //renderer.flush();
+
+        }, 10
+    );
+
+
+</script>
+
+</body>
+</html>
