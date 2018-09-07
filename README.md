@@ -6,10 +6,15 @@ It was especially important to not look anything up online which could serve any
 Fig1 shows the rendering of a bunch of pyramids. The renderer also supports transformation and moving around using hotkeys definded in Renderer.js.
 3D rays can be added using
 ```javascript
-//draw x-axis
+//add x-axis to linebuffer
 renderer.commit(
         [
             [0, 0, 0],
             [100, 0, 0]
         ]);
+// draw all lines onto the 2D canvas
+renderer.draw();
+
+//clear linebuffer/remove all lines
+renderer.flush();
 ```
